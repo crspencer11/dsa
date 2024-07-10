@@ -1,4 +1,4 @@
-def lengthOfLongestSubstring(s: str) -> int:
+def length_of_longest_substring(s: str) -> int:
         if not s:
             return 0 
         max_length = 1
