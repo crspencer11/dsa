@@ -23,6 +23,7 @@ jobs:
       run: |
         COMMIT_COUNT=$(git rev-list --count HEAD)
         sed -i "s/Problems Solved: [0-9]*/Problems Solved: $COMMIT_COUNT/" README.md
+        cat README.md  # Display the updated README for debugging
 
     - name: Commit and push changes
       run: |
