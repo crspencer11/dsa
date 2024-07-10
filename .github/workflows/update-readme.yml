@@ -3,7 +3,7 @@ name: Update README with Commit Count
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - '**/*.md' 
 
