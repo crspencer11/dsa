@@ -1,34 +1,18 @@
-name: Update README with Commit Count
-
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - '**/*.md' 
-
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
 jobs:
-  update-readme:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository content
-      uses: actions/checkout@v2
-
-    - name: Count commits
-      id: count-commits
-      run: echo "::set-output name=count::$(git rev-list --count HEAD)"
-
-    - name: Update README
-      run: |
-        COMMIT_COUNT=$(git rev-list --count HEAD)
-        sed -i "s/Problems Solved: [0-9]*/Problems Solved: $COMMIT_COUNT/" README.md
-        cat README.md  # Display the updated README for debugging
-
-    - name: Commit and push changes
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add README.md
-        git commit -m "Update problem count in README [skip ci]"
-        git push
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
