@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '**/*.md' 
 
 jobs:
   update-readme:
@@ -13,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository content
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Count commits
       id: count-commits
