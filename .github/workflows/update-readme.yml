@@ -36,7 +36,7 @@ jobs:
           with open('README.md', 'r') as file:
               lines = file.readlines()
           lines[-1] = f'Total Problems Solved: {count}\\n'
-          with open('READEME.md', 'w') as file:
+          with open('README.md', 'w') as file:
               file.writelines(lines)
           "
 
