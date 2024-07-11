@@ -4,6 +4,6 @@ def sortedArrayToBST(nums: List[int]) -> Optional[TreeNode]:
         else:
             mid = len(nums) // 2
             tree = TreeNode(nums[mid])
-            tree.left = self.sortedArrayToBST(nums[:mid])
-            tree.right = self.sortedArrayToBST(nums[mid+1:])
+            tree.left = sortedArrayToBST(nums[:mid])
+            tree.right = sortedArrayToBST(nums[mid+1:])
             return tree
