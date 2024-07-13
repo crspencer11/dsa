@@ -1,4 +1,4 @@
 # dsa
 This repository tracks the dsa problems I've solved.
 
-Total Problems Solved: 49
+Total Problems Solved: 50
