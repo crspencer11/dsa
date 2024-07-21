@@ -1,4 +1,4 @@
 # dsa
-This repository tracks the dsa problems I've solved.
+DSA problems I've solved. Particeing for MANAGA
 
 Total Problems Solved: 69
