@@ -1,4 +1,4 @@
 # dsa
-DSA problems I've solved. Particeing for MANAGA
+DSA problems I've solved. Particing...
 
 Total Problems Solved: 69
