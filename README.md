@@ -1,4 +1,4 @@
 # dsa
 DSA problems I've solved. Practicing to change the world...
 
-Total Problems Solved: 73
+Total Problems Solved: 74
