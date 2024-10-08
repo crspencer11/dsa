@@ -14,3 +14,4 @@ class Solution {
         traverse(root.right, results);
     }
 }
+
