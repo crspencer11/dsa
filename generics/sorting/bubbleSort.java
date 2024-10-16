@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Main {
   static void bubbleSort(int[] nums) {
     int size = nums.length;
@@ -16,6 +18,6 @@ class Main {
   public static void main(String args[]) {
     int[] data = {5, -4, 16, 1, 28};
     Main.bubbleSort(data);
-    System.out.println(data);
+    System.out.println(Arrays.toString(data));
   }
 }
