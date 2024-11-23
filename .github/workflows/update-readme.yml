@@ -26,15 +26,15 @@ jobs:
 
           # Function to count solved problems by language
           def count_problems(directory):
-              counts = {'Python': 0, 'Java': 0, 'Go': 0}
+              counts = {"Python": 0, "Java": 0, "Go": 0}
               for root, _, files in os.walk(directory):
                   for file in files:
-                      if file.endswith('.py'):
+                      if file.endswith(".py"):
                           counts["Python"] += 1
-                      elif file.endswith('.java'):
+                      elif file.endswith(".java"):
                           counts["Java"] += 1
-                      elif file.endswith('.go'):
-                          counts['Go'] += 1
+                      elif file.endswith(".go"):
+                          counts["Go"] += 1
               return counts
 
           # Count problems
