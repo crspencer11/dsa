@@ -53,17 +53,17 @@ jobs:
               if line.startswith('## Solved Problems:'):
                   updated = True
                   lines[i + 1:i + 4] = [
-                      f'Python: {counts["Python"]}\\n',
-                      f'Java: {counts["Java"]}\\n',
-                      f'Go: {counts["Go"]}\\n'
+                      f'Python: {counts[\"Python\"]}\\n',
+                      f'Java: {counts[\"Java\"]}\\n',
+                      f'Go: {counts[\"Go\"]}\\n'
                   ]
                   break
 
           if not updated:
               lines.append('\\n## Solved Problems:\\n')
-              lines.append(f'Python: {counts["Python"]}\\n')
-              lines.append(f'Java: {counts["Java"]}\\n')
-              lines.append(f'Go: {counts["Go"]}\\n')
+              lines.append(f'Python: {counts[\"Python\"]}\\n')
+              lines.append(f'Java: {counts[\"Java\"]}\\n')
+              lines.append(f'Go: {counts[\"Go\"]}\\n')
 
           with open(readme_path, 'w') as file:
               file.writelines(lines)
