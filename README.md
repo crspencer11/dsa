@@ -1,4 +1,8 @@
 # Data Structures and Algorithms
 DSA problems I've solved. Practicing to change the world...
 
-Total Problems Solved: 97
+## Solved Problems:
+Python: 34
+Java: 58
+Go: 23
+
