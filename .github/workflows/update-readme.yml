@@ -30,9 +30,9 @@ jobs:
               for root, _, files in os.walk(directory):
                   for file in files:
                       if file.endswith('.py'):
-                          counts['Python'] += 1
+                          counts["Python"] += 1
                       elif file.endswith('.java'):
-                          counts['Java'] += 1
+                          counts["Java"] += 1
                       elif file.endswith('.go'):
                           counts['Go'] += 1
               return counts
