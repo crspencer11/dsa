@@ -33,7 +33,7 @@ jobs:
                           counts["Python"] += 1
                       elif file.endswith('.java'):
                           counts["Java"] += 1
-                      elif file.endswith(".go"):
+                      elif file.endswith('.go'):
                           counts["Go"] += 1
               return counts
 
