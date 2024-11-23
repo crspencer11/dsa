@@ -18,25 +18,54 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Count Solved problems
+      - name: Count solved problems and update README
         id: count_problems
         run: |
           python -c "
           import os
 
+          # Function to count solved problems by language
           def count_problems(directory):
-              count = 0
+              counts = {'Python': 0, 'Java': 0, 'Go': 0}
               for root, _, files in os.walk(directory):
                   for file in files:
-                      if file.endswith('.py') or file.endswith('.java'):
-                          count += 1
-              return count
+                      if file.endswith('.py'):
+                          counts['Python'] += 1
+                      elif file.endswith('.java'):
+                          counts['Java'] += 1
+                      elif file.endswith('.go'):
+                          counts['Go'] += 1
+              return counts
 
-          count = count_problems('.')
-          with open('README.md', 'r') as file:
+          # Count problems
+          counts = count_problems('.')
+
+          # Update README
+          readme_path = 'README.md'
+          if not os.path.exists(readme_path):
+              raise FileNotFoundError(f'{readme_path} does not exist.')
+
+          with open(readme_path, 'r') as file:
               lines = file.readlines()
-          lines[-1] = f'Total Problems Solved: {count}\\n'
-          with open('README.md', 'w') as file:
+
+          updated = False
+          for i, line in enumerate(lines):
+              if line.startswith('## Solved Problems:'):
+                  updated = True
+                  lines[i + 1:i + 4] = [
+                      f'Python: {counts["Python"]}\\n',
+                      f'Java: {counts["Java"]}\\n',
+                      f'Go: {counts["Go"]}\\n'
+                  ]
+                  break
+
+          if not updated:
+              lines.append('\\n## Solved Problems:\\n')
+              lines.append(f'Python: {counts["Python"]}\\n')
+              lines.append(f'Java: {counts["Java"]}\\n')
+              lines.append(f'Go: {counts["Go"]}\\n')
+
+          with open(readme_path, 'w') as file:
               file.writelines(lines)
           "
 
@@ -45,7 +74,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
-          git commit -m "Update solved problems count"
+          git diff --cached --exit-code || git commit -m "Update solved problems count"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
