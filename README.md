@@ -4,5 +4,5 @@ DSA problems I've solved. Practicing to change the world...
 ## Solved Problems:
 Python: 38
 Java: 80
-Go: 13
+Go: 14
 
