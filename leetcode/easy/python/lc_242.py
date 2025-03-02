@@ -1,10 +1,16 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
+        len_s = len(s)
+        len_t = len(t)
+        if len_s != len_t:
             return False
-        s_count = {}
-        t_count = {}
-        for i in range(len(s)):
-            s_count[s[i]] = 1 + s_count.get(s[i], 0)
-            t_count[t[i]] = 1 + t_count.get(t[i], 0)
-        return s_count == t_count
+        def hash(string):
+            d = {}
+            for char in string:
+                if char in d:
+                    d[char] += 1
+                else:
+                    d[char] = 1
+            return d
+        return hash(s) == hash(t)
+
