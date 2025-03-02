@@ -2,7 +2,7 @@
 DSA problems I've solved. Practicing to change the world...
 
 ## Solved Problems:
-Python: 44
+Python: 45
 Java: 88
 Go: 21
 
