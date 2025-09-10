@@ -3,6 +3,6 @@ DSA problems I've solved. just practicing...
 
 ## Solved Problems:
 Python: 61
-Java: 97
+Java: 98
 Go: 21
 
