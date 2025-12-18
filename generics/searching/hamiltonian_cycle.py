@@ -20,3 +20,8 @@ def hamiltonian(strArr) -> str:
         if nxt not in graph[curr]:
             return curr
     return "yes"
+
+print(hamiltonian(["(A,B,C)", "(A-B,B-C)", "(A,B,C)"]))
+print(hamiltonian(["(A,B,C,D)", "(A-B,B-C,C-D)", "(A,B,C,D)"]))
+print(hamiltonian(["(A,B,C,D,E)", "(A-B,B-C,C-D,D-E,E-A)", "(A,B,C,D,E)"]))
+print(hamiltonian(["(A,B,C,D)", "(A-B,B-C,C-A,C-D)", "(A,B,C,D)"]))
