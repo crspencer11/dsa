@@ -31,24 +31,39 @@ No class is sampled more than its available count
 The class distribution is as balanced as possible
 """
 
+import heapq
+
 def find_samples(n: int, class_counts: dict) -> dict:
-    final = {}
-    for k, v in class_counts.items():
-        # find val average to even out distributuon
-        val_avg = n // v
-        print(val_avg)
-        if val_avg > n:
-            final[k] = v * val_avg
-            print(final)
-        else:
-            final[k] = abs(n - val_avg)
-        n -= val_avg
+    final = {k: 0 for k in class_counts}
+    num_classes = len(class_counts)
+
+    class_avg = n // num_classes
+    for k in class_counts:
+        take = min(class_avg, class_counts[k])
+        final[k] = take
+        n -= take
+
+    # only min heaps in python so store negatives
+    heap = []
+    for k in class_counts:
+        rem = class_counts[k] - final[k]
+        if rem > 0:
+            heapq.heappush(heap, (-rem, k))
+
+    while n > 0 and heap:
+        rem, k = heapq.heappop(heap)
+        final[k] += 1
+        n -= 1
+        rem += 1  # since rem is negative
+        if rem < 0:
+            heapq.heappush(heap, (rem, k))
+
     return final
 
-a = find_samples(10, {
+
+print(find_samples(10, {
     "cat": 6,
     "dog": 4,
-    "bird": 8
-})
-
-print(a)
+    "bird": 8,
+    "hippo": 7
+}))
