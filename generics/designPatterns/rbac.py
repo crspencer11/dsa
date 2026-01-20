@@ -1,5 +1,6 @@
 from typing import Set
 from enum import Enum, auto
+import re
 
 class RoleType(Enum):
     ADMIN = auto()
@@ -38,6 +39,17 @@ class RBAC:
             
         return permissions
     
+    @staticmethod
+    def to_snake_case(value: str) -> str:
+        if not value:
+            return ""
+        
+        value = re.sub(r"[\-\.\s]+", " ", value)
+        value = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", value)
+        value = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", value)
+
+        return value.strip().lower().replace(" ", "_")
+
     def grant_permission(self, role: RoleType, permission: str) -> None:
         if role not in self.ROLE_PERMISSIONS:
             raise ValueError(f"Role {role} does not exist")
@@ -46,6 +58,7 @@ class RBAC:
             raise ValueError(f"Permission '{permission}' already granted to {role.name}")
 
         # grant permission to the role && recalc effective permissions
+        permission = self.to_snake_case(permission)
         self.ROLE_PERMISSIONS[role].add(permission)
         self.effective_permissions = self._get_all_permissions(self.user_role)
         print(f"Permission {permission} added to role {role.name}")
@@ -55,4 +68,4 @@ class RBAC:
 
 admin_session = RBAC(RoleType.ADMIN)
 print(f"Admin can read? {admin_session.has_access('read_file')}") # True via inheritance
-admin_session.grant_permission(RoleType.ADMIN, 'deletegroup')
+admin_session.grant_permission(RoleType.ADMIN, 'deleteGroup')
