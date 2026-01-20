@@ -38,15 +38,21 @@ class RBAC:
             
         return permissions
     
-    def grant_access(self, permission: str) -> None:
-        if permission in self.effective_permissions:
-            return ValueError("Permission already granted!")
-        
-        self.effective_permissions.add(permission)
-        return None
+    def grant_permission(self, role: RoleType, permission: str) -> None:
+        if role not in self.ROLE_PERMISSIONS:
+            raise ValueError(f"Role {role} does not exist")
+
+        if permission in self.ROLE_PERMISSIONS[role]:
+            raise ValueError(f"Permission '{permission}' already granted to {role.name}")
+
+        # grant permission to the role && recalc effective permissions
+        self.ROLE_PERMISSIONS[role].add(permission)
+        self.effective_permissions = self._get_all_permissions(self.user_role)
+        print(f"Permission {permission} added to role {role.name}")
 
     def has_access(self, permission: str) -> bool:
         return permission in self.effective_permissions
 
 admin_session = RBAC(RoleType.ADMIN)
 print(f"Admin can read? {admin_session.has_access('read_file')}") # True via inheritance
+admin_session.grant_permission(RoleType.ADMIN, 'deletegroup')
