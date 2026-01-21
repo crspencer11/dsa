@@ -47,6 +47,7 @@ class RBAC:
         value = re.sub(r"[\-\.\s]+", " ", value)
         value = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", value)
         value = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", value)
+        value = re.sub(r"([a-z]+)([a-z][a-z]+)", r"\1_\2", value)
 
         return value.strip().lower().replace(" ", "_")
 
@@ -68,4 +69,4 @@ class RBAC:
 
 admin_session = RBAC(RoleType.ADMIN)
 print(f"Admin can read? {admin_session.has_access('read_file')}") # True via inheritance
-admin_session.grant_permission(RoleType.ADMIN, 'deleteGroup')
+admin_session.grant_permission(RoleType.ADMIN, 'deletegroup')
