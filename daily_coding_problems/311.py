@@ -1,0 +1,10 @@
+def find_peak(nums):
+    """
+    Given a array that's sorted but rotated at some unknown pivot, in which all elements are distinct, find a "peak" element in O(log N) time.
+
+    An element is considered a peak if it is greater than both its left and right neighbors. It is guaranteed that the first and last elements are lower than all others.
+    """
+    i = 1
+    j = 2
+    while i < len(nums) - 1:
+        
