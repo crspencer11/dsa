@@ -2,7 +2,7 @@
 DSA problems I've solved. just practicing...
 
 ## Solved Problems:
-Python: 110
+Python: 111
 Java: 109
 Go: 21
 
