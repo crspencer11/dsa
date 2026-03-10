@@ -1,30 +1,27 @@
 data = "day-300/data.csv"
 
-def generate(file: str):
-    voters = set()
-    candidates = {}
+class FraudDetector:
+    def __init__(self):
+        self.voters = set()
+        self.candidates = {}
 
-    with open(file, "r") as f:
-        next(f)  # skip header if CSV
-        for line in f:
-            voter, candidate = line.strip().split(",")
+    def process_file(self, file_path: str):
+        with open(file_path, 'r') as f:
+            for line in f:
+                voter, candidate = line.strip().split(',')
+                self._gather_vote(voter, candidate)
 
-            if voter in voters:
-                print(f"Fraud detected: voter {voter}")
-                continue
+    def _gather_vote(self, voter: str, candidate: str):
+        if voter in self.voters:
+            print(f"Fraud detected: voter {voter}")
+            return
 
-            voters.add(voter)
-            candidates[candidate] = candidates.get(candidate, 0) + 1
+        self.voters.add(voter)
+        self.candidates[candidate] = self.candidates.get(candidate, 0) + 1
 
-    return top_three_candidates(candidates)
-
-
-def top_three_candidates(candidates: dict):
-    return sorted(
-        candidates,
-        key=candidates.get,
-        reverse=True
-    )[:3]
-
-
-generate(data)
+    def top_three_candidates(self):
+        return sorted(
+            self.candidates,
+            key=self.candidates.get,
+            reverse=True
+        )[:3]
