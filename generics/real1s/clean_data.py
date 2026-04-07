@@ -1,5 +1,4 @@
-
-def clean_data(orders: list[dict]):
+def clean_data(orders: list[dict]) -> dict[str, float]:
     """
     You’re given a list of order records from multiple systems:
     orders = [
@@ -20,21 +19,27 @@ def clean_data(orders: list[dict]):
         "bob": 7.0
     }
     """
-    output = {}
-    mapped = {}
+    seen = {}
+    result = {}
+
     for order in orders:
-        status = order['status'].lower()
-        amount = convert_amount(order['amount'])
-        order_id = order['order_id']
-        customer = order['customer'].lower()
-        if status != 'paid' or not amount:
+        if order.get("status", "").lower() != "paid":
             continue
-        if order_id not in mapped:
-            mapped[order_id] = [customer, amount]
-    
-    for v in mapped.values():
-        output[v[0]] = v[1]
-    return output
+
+        order_id = order.get("order_id")
+        if order_id in seen:
+            continue
+
+        amount = convert_amount(order.get("amount"))
+        if amount is None:
+            continue
+
+        customer = order.get("customer", "").strip().lower()
+
+        seen[order_id] = True
+        result[customer] = result.get(customer, 0.0) + amount
+
+    return result
 
 def convert_amount(value):
     try:
@@ -52,3 +57,52 @@ print(clean_data(orders = [
         {"order_id": "A2", "customer": "bob", "amount": None, "status": "pending"},
         {"order_id": "A3", "customer": "BOB", "amount": "7", "status": "paid"},
     ]))
+
+def total_spending(orders, customers):
+    """
+    orders = [
+        {"order_id": "A1", "customer_id": 1, "amount": 10},
+        {"order_id": "A2", "customer_id": 2, "amount": 20},
+        {"order_id": "A3", "customer_id": 1, "amount": 5},
+    ]
+
+    customers = [
+        {"id": 1, "name": "Alice"},
+        {"id": 2, "name": "Bob"},
+    ]
+
+    output:
+    {
+        "Alice": 15,
+        "Bob": 20
+    }
+    """
+    customer_lookup = {c["id"]: c["name"] for c in customers}
+    totals = {}
+
+    for order in orders:
+        cid = order.get("customer_id")
+        amount = order.get("amount")
+
+        if cid not in customer_lookup:
+            continue
+
+        if not isinstance(amount, (int, float)):
+            continue
+
+        name = customer_lookup[cid]
+        totals[name] = totals.get(name, 0) + amount
+
+    return totals
+
+print(total_spending(
+    orders = [
+        {"order_id": "A1", "customer_id": 1, "amount": 10},
+        {"order_id": "A2", "customer_id": 2, "amount": 20},
+        {"order_id": "A3", "customer_id": 1, "amount": 5},
+    ],
+    customers = [
+        {"id": 1, "name": "Alice"},
+        {"id": 2, "name": "Bob"},
+    ]
+))
