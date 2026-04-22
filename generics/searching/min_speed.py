@@ -10,7 +10,7 @@ If a pile has less than k, you finish it in that hour
 Return the minimum k such that all piles are finished within h
 """
 
-def min_speed(piles: list[np.uint32], hours: np.uint64) -> int:
+def min_speed(piles: list[np.uint32], hours: np.uint64) -> np.uint32:
     left, right = 1, max(piles)
 
     def can_finish(k: np.uint32) -> bool:
