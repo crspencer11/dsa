@@ -1,56 +1,39 @@
-def find_dependencies(dependencies: list[tuple[str, str]], start: str):
-    """
-    Inputs:
-    dependencies = [
-        ("raw_users", "stg_users"),
-        ("stg_users", "dim_users"),
-        ("dim_users", "daily_metrics"),
-        ("raw_orders", "fct_orders"),
-        ("fct_orders", "daily_metrics")
-    ]
+from collections import defaultdict
 
-    start = "raw_users"
+def fun(dependencies: list[tuple[str, str]], start: str):
 
-    Output:
-    [
-        "stg_users",
-        "dim_users",
-        "daily_metrics"
-    ]
-    """
-
-    def build_graph(dependencies: list[tuple[str, str]]):
-        graph = {}
-
+    def build_graph(dependencies):
+        graph = defaultdict(list)
         for src, dst in dependencies:
-            graph[src] = dst
+            graph[src].append(dst)
 
         return graph
 
     graph = build_graph(dependencies)
-
     final = []
     seen = set()
 
-    while start in graph and start not in seen:
-        seen.add(start)
+    def dfs(node):
+        for neighbor in graph[node]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                final.append(neighbor)
 
-        neighbor = graph[start]
-        final.append(neighbor)
+                dfs(neighbor)
 
-        start = neighbor
+    dfs(start)
 
     return final
 
 
 print(
-    find_dependencies(
+    fun(
         dependencies=[
             ("raw_users", "stg_users"),
+            ("raw_users", "audit_users"),
             ("stg_users", "dim_users"),
             ("dim_users", "daily_metrics"),
-            ("raw_orders", "fct_orders"),
-            ("fct_orders", "daily_metrics"),
+            ("audit_users", "fraud_metrics"),
         ],
         start="raw_users",
     )
